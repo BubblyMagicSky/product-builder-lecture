@@ -1,0 +1,29 @@
+[
+    {
+        "img": "https://i.ibb.co/9v0z1zQ/kimchi-jjigae.jpg",
+        "title": "Kimchi Jjigae",
+        "description": "A classic Korean stew made with kimchi, tofu, and pork.",
+        "ingredients": ["1 lb kimchi, chopped", "1/2 lb pork belly, sliced", "1 block tofu, sliced", "4 cups water", "1 tbsp gochujang", "1 tsp gochugaru", "1 green onion, chopped"],
+        "instructions": ["1. In a pot, sauté pork belly until browned.", "2. Add kimchi and cook for 5 minutes.", "3. Pour in water and bring to a boil.", "4. Stir in gochujang and gochugaru.", "5. Add tofu and cook for 10 minutes.", "6. Garnish with green onion and serve."],
+        "prepTime": "10 minutes",
+        "cookTime": "25 minutes"
+    },
+    {
+        "img": "https://i.ibb.co/M2wz5tQ/bibimbap.jpg",
+        "title": "Bibimbap",
+        "description": "A mixed rice dish with assorted vegetables, beef, and a fried egg.",
+        "ingredients": ["2 cups cooked rice", "1/2 lb beef, thinly sliced", "1 carrot, julienned", "1 cucumber, julienned", "1 cup spinach, blanched", "1/2 cup bean sprouts, blanched", "1 egg, fried", "Gochujang sauce to taste"],
+        "instructions": ["1. Marinate beef in soy sauce, sesame oil, and garlic.", "2. Sauté beef until cooked through.", "3. Arrange rice, beef, and vegetables in a bowl.", "4. Top with a fried egg and gochujang sauce.", "5. Mix everything together before eating."],
+        "prepTime": "20 minutes",
+        "cookTime": "15 minutes"
+    },
+    {
+        "img": "https://i.ibb.co/yQxFRzY/bulgogi.jpg",
+        "title": "Bulgogi",
+        "description": "Thinly sliced marinated beef, grilled to perfection.",
+        "ingredients": ["1 lb beef, thinly sliced", "1/2 cup soy sauce", "1/4 cup sugar", "2 tbsp sesame oil", "3 cloves garlic, minced", "1 pear, grated", "1/2 onion, sliced"],
+        "instructions": ["1. In a bowl, combine soy sauce, sugar, sesame oil, garlic, and pear to make the marinade.", "2. Add beef to the marinade and let it sit for at least 30 minutes.", "3. Grill or pan-fry the beef until cooked through.", "4. Sauté onions and serve with the beef."],
+        "prepTime": "15 minutes (plus 30 minutes marinating)",
+        "cookTime": "10 minutes"
+    }
+]

@@ -16,6 +16,7 @@ class RecipeCard extends HTMLElement {
                     border-radius: 5px;
                     overflow: hidden;
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
                 }
                 img {
                     width: 100%;
@@ -44,30 +45,71 @@ customElements.define("recipe-card", RecipeCard);
 
 document.addEventListener("DOMContentLoaded", () => {
     const recipeContainer = document.getElementById("recipe-container");
+    const searchBar = document.getElementById("search-bar");
+    const modal = document.getElementById("recipe-modal");
+    const closeButton = document.querySelector(".close-button");
+    let recipes = [];
 
-    const recipes = [
-        {
-            img: "https://via.placeholder.com/300x200.png?text=Kimchi+Jjigae",
-            title: "Kimchi Jjigae",
-            description: "A classic Korean stew made with kimchi, tofu, and pork.",
-        },
-        {
-            img: "https://via.placeholder.com/300x200.png?text=Bibimbap",
-            title: "Bibimbap",
-            description: "A mixed rice dish with assorted vegetables, beef, and a fried egg.",
-        },
-        {
-            img: "https://via.placeholder.com/300x200.png?text=Bulgogi",
-            title: "Bulgogi",
-            description: "Thinly sliced marinated beef, grilled to perfection.",
-        },
-    ];
+    fetch("recipes.json")
+        .then(response => response.json())
+        .then(data => {
+            recipes = data;
+            renderRecipes(recipes);
+        });
 
-    recipes.forEach(recipe => {
-        const recipeCard = document.createElement("recipe-card");
-        recipeCard.setAttribute("img", recipe.img);
-        recipeCard.setAttribute("title", recipe.title);
-        recipeCard.setAttribute("description", recipe.description);
-        recipeContainer.appendChild(recipeCard);
+    function renderRecipes(recipesToRender) {
+        recipeContainer.innerHTML = "";
+        recipesToRender.forEach(recipe => {
+            const recipeCard = document.createElement("recipe-card");
+            recipeCard.setAttribute("img", recipe.img);
+            recipeCard.setAttribute("title", recipe.title);
+            recipeCard.setAttribute("description", recipe.description);
+            recipeCard.addEventListener("click", () => openModal(recipe));
+            recipeContainer.appendChild(recipeCard);
+        });
+    }
+
+    searchBar.addEventListener("input", e => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredRecipes = recipes.filter(recipe =>
+            recipe.title.toLowerCase().includes(searchTerm) ||
+            recipe.description.toLowerCase().includes(searchTerm)
+        );
+        renderRecipes(filteredRecipes);
+    });
+
+    function openModal(recipe) {
+        document.getElementById("modal-title").textContent = recipe.title;
+        document.getElementById("modal-img").src = recipe.img;
+        document.getElementById("modal-prep-time").textContent = recipe.prepTime;
+        document.getElementById("modal-cook-time").textContent = recipe.cookTime;
+
+        const ingredientsList = document.getElementById("modal-ingredients");
+        ingredientsList.innerHTML = "";
+        recipe.ingredients.forEach(ingredient => {
+            const li = document.createElement("li");
+            li.textContent = ingredient;
+            ingredientsList.appendChild(li);
+        });
+
+        const instructionsList = document.getElementById("modal-instructions");
+        instructionsList.innerHTML = "";
+        recipe.instructions.forEach(instruction => {
+            const li = document.createElement("li");
+            li.textContent = instruction;
+            instructionsList.appendChild(li);
+        });
+
+        modal.style.display = "block";
+    }
+
+    closeButton.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", e => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
     });
 });
