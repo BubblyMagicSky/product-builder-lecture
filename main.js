@@ -11,26 +11,49 @@ class RecipeCard extends HTMLElement {
             <style>
                 :host {
                     display: block;
-                    background-color: white;
-                    border: 1px solid #ddd;
-                    border-radius: 5px;
+                    background-color: var(--surface, #ffffff);
+                    border: 1px solid var(--line, #e6d8cd);
+                    border-radius: 18px;
                     overflow: hidden;
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                    box-shadow: var(--card-shadow, 0 10px 25px rgba(0, 0, 0, 0.12));
                     cursor: pointer;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                    animation: cardIn 0.6s ease both;
+                }
+                :host(:hover) {
+                    transform: translateY(-4px);
+                    box-shadow: var(--card-shadow-hover, 0 16px 30px rgba(0, 0, 0, 0.18));
                 }
                 img {
                     width: 100%;
-                    height: 200px;
+                    height: 220px;
                     object-fit: cover;
                 }
                 h3 {
-                    padding: 0.5rem 1rem;
+                    font-family: "Fraunces", "Times New Roman", serif;
+                    padding: 0.9rem 1.1rem 0.6rem;
                     margin: 0;
-                    background-color: #eee;
+                    font-size: 1.25rem;
                 }
                 p {
-                    padding: 1rem;
+                    padding: 0 1.1rem 1.2rem;
                     margin: 0;
+                    color: var(--muted-ink, #4f4b46);
+                }
+                @keyframes cardIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(12px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                @media (max-width: 700px) {
+                    img {
+                        height: 190px;
+                    }
                 }
             </style>
             <img src="${this.getAttribute("img")}" alt="${this.getAttribute("title")}">
@@ -59,11 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderRecipes(recipesToRender) {
         recipeContainer.innerHTML = "";
-        recipesToRender.forEach(recipe => {
+        recipesToRender.forEach((recipe, index) => {
             const recipeCard = document.createElement("recipe-card");
             recipeCard.setAttribute("img", recipe.img);
             recipeCard.setAttribute("title", recipe.title);
             recipeCard.setAttribute("description", recipe.description);
+            recipeCard.style.animationDelay = `${index * 70}ms`;
             recipeCard.addEventListener("click", () => openModal(recipe));
             recipeContainer.appendChild(recipeCard);
         });
